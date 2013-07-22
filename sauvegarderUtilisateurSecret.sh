@@ -3,12 +3,15 @@
 # Debut Fonctions
 
 function verifierRepertoireSauvegarde() {
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${JOURNALIERE}
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${HEBDOMADAIRE}
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${MENSUEL}
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${ANNUEL}
-    sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
+    if [ ! -d ${REPERTOIRE_HOME_SAUVEGARDE}/$1 ]; then
+        echo Le répertoire ${REPERTOIRE_HOME_SAUVEGARDE}/$1 n existe pas. Création.
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${JOURNALIERE}
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${HEBDOMADAIRE}
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${MENSUEL}
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${ANNUEL}
+        sudo mkdir ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
+    fi
 }
 
 function pause(){
