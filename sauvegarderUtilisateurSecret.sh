@@ -54,7 +54,7 @@ function synchronisationSauvegarde () {
 # Function : journalisation
 
 function journalisation () {
-
+    echo Journalisation
 }
 
 # Function : supprimerArchive
@@ -63,7 +63,7 @@ function journalisation () {
 #   Type de sauvegarde (journaliere, hebdomadaire, mensuel, annuel)
 
 function supprimerArchive () {
-
+    echo supprimerArchive
 }
 
 # Fin fonctions
@@ -102,28 +102,40 @@ minuteCourant="`date +'%M'`"
 
 dateHeure=${anneeCourant}${moisCourant}${jourCourant}_${heureCourant}${minuteCourant}
 
-echo "*** Sauvegarde " ${UTILISATEUR} " ****"
 
-verifierRepertoireSauvegarde ${UTILISATEUR}
+if [ $# -gt 0 ] && [ "$1" = "production" ] && [ "$2" = "sauvegarde" ]; then
 
-#pause 'Appuyer sur la touche [Entrée] pour continuer...'
+    echo "*** Sauvegarde " ${UTILISATEUR} " ****"
 
-echo "Horaire archive : " ${dateHeure}
+    verifierRepertoireSauvegarde ${UTILISATEUR}
 
-#pause 'Appuyer sur la touche [Entrée] pour continuer...'
+    #pause 'Appuyer sur la touche [Entrée] pour continuer...'
 
-echo Sauvegarde de ${REPERTOIRE_HOME_ORIGINE}/${UTILISATEUR} vers ${REPERTOIRE_HOME_SAUVEGARDE}
+    echo "Horaire archive : " ${dateHeure}
 
-compressionUtilisateur ${UTILISATEUR}
+    #pause 'Appuyer sur la touche [Entrée] pour continuer...'
 
-#pause 'Appuyer sur la touche [Entrée] pour continuer...'
+    echo Sauvegarde de ${REPERTOIRE_HOME_ORIGINE}/${UTILISATEUR} vers ${REPERTOIRE_HOME_SAUVEGARDE}
 
-deplacementArchiveVersSauvegarde ${UTILISATEUR} ${JOURNALIERE}
+    compressionUtilisateur ${UTILISATEUR}
 
-#pause 'Appuyer sur la touche [Entrée] pour continuer...'
+    #pause 'Appuyer sur la touche [Entrée] pour continuer...'
 
-echo "Synchronisation"
+    deplacementArchiveVersSauvegarde ${UTILISATEUR} ${JOURNALIERE}
 
-synchronisationSauvegarde ${UTILISATEUR} ${SYNCHRO}
+    #pause 'Appuyer sur la touche [Entrée] pour continuer...'
 
-echo "*** Sauvegarde terminé ***"
+    echo "Synchronisation"
+
+    synchronisationSauvegarde ${UTILISATEUR} ${SYNCHRO}
+
+    echo "*** Sauvegarde terminé ***"
+
+else
+    echo 
+    echo Utilisation :
+    echo 
+    echo    - Sauvegarde en production :
+    echo        ./sauvegarderUtilisateurSecret.sh production sauvegarde
+    echo 
+fi
