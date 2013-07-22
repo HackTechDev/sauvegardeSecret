@@ -2,6 +2,11 @@
 
 # Debut Fonctions
 
+
+# Function : verifierRepertoireSauvegarde
+# Paramètre :
+#   Nom de l'utilisateur
+
 function verifierRepertoireSauvegarde() {
     if [ ! -d ${REPERTOIRE_HOME_SAUVEGARDE}/$1 ]; then
         echo Le répertoire ${REPERTOIRE_HOME_SAUVEGARDE}/$1 n existe pas. Création.
@@ -18,19 +23,47 @@ function pause(){
    read -p "$*"
 }
 
+# Function : compressionUtilisateur
+# Paramètre :
+#   Nom de l'utilisateur
+
 function compressionUtilisateur () {
     echo tar cvfz ${REPERTOIRE_HOME_ORIGINE}/$1_$dateHeure.tar.gz /home/$1
     sudo tar cvfz ${REPERTOIRE_HOME_ORIGINE}/$1_$dateHeure.tar.gz /home/$1
 }
+
+# Function : deplacementArchiveVersSauvegarde
+# Paramètre :
+#   Nom de l'utilisateur
+#   Type de sauvegarde (journaliere, hebdomadaire, mensuel, annuel)
 
 function deplacementArchiveVersSauvegarde () {
     echo mv ${REPERTOIRE_HOME_ORIGINE}/$1_$dateHeure.tar.gz ${REPERTOIRE_HOME_SAUVEGARDE}/$1/$2
     sudo mv ${REPERTOIRE_HOME_ORIGINE}/$1_$dateHeure.tar.gz ${REPERTOIRE_HOME_SAUVEGARDE}/$1/$2
 }
 
+# Function : synchronisationSauvegarde
+# Paramètre :
+#   Nom de l'utilisateur
+
 function synchronisationSauvegarde () {
     echo rsync -av --delete ${REPERTOIRE_HOME_ORIGINE}/$1 ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
     sudo rsync -av --delete ${REPERTOIRE_HOME_ORIGINE}/$1 ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
+}
+
+# Function : journalisation
+
+function journalisation () {
+
+}
+
+# Function : supprimerArchive
+# Paramètre :
+#   Nom de l'utilisateur
+#   Type de sauvegarde (journaliere, hebdomadaire, mensuel, annuel)
+
+function supprimerArchive () {
+
 }
 
 # Fin fonctions
@@ -38,7 +71,7 @@ function synchronisationSauvegarde () {
 # Répertoire des utilisateurs
 REPERTOIRE_HOME_ORIGINE=/home
 
-# Répertoire de sauvegarde
+# Répertoire de sauvegarde /!\ A modifier /!\
 REPERTOIRE_HOME_SAUVEGARDE=/media/secret/SAUVEGARDE1
 
 # Utilisateur à sauvegarder /!\ A modifier /!\
