@@ -42,11 +42,11 @@ function deplacementArchiveVersSauvegarde () {
     sudo mv ${REPERTOIRE_HOME_ORIGINE}/$1_$dateHeure.tar.gz ${REPERTOIRE_HOME_SAUVEGARDE}/$1/$2
 }
 
-# Function : synchronisationSauvegarde
+# Function : synchronisationUtilisateur
 # Paramètre :
 #   Nom de l'utilisateur
 
-function synchronisationSauvegarde () {
+function synchronisationUtilisateur () {
     echo rsync -av --delete ${REPERTOIRE_HOME_ORIGINE}/$1 ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
     sudo rsync -av --delete ${REPERTOIRE_HOME_ORIGINE}/$1 ${REPERTOIRE_HOME_SAUVEGARDE}/$1/${SYNCHRO}
 }
@@ -89,7 +89,7 @@ MENSUEL=mensuel
 # Répertoire de sauvegarde annuel
 ANNUEL=annuel
 
-# Répertoire de synchonisation
+# Répertoire de synchronisation
 SYNCHRO=synchro
 
 # Horadateur :
@@ -127,7 +127,7 @@ if [ $# -gt 0 ] && [ "$1" = "production" ] && [ "$2" = "sauvegarde" ]; then
 
     echo "Synchronisation"
 
-    synchronisationSauvegarde ${UTILISATEUR} ${SYNCHRO}
+    synchronisationUtilisateur ${UTILISATEUR} ${SYNCHRO}
 
     echo "*** Sauvegarde terminé ***"
 
