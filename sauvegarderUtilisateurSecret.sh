@@ -66,6 +66,10 @@ function supprimerArchive () {
     echo supprimerArchive
 }
 
+function rotationArchive() {
+    echo rotationArchive $1 : $2
+}
+
 # Fin fonctions
 
 # Répertoire des utilisateurs
@@ -102,6 +106,9 @@ minuteCourant="`date +'%M'`"
 
 dateHeure=${anneeCourant}${moisCourant}${jourCourant}_${heureCourant}${minuteCourant}
 
+if [ $# -gt 0 ] && [ "$1" = "production" ] && [ "$2" = "rotation" ] && [ "$3" = "hebdomadaire" ]; then
+    rotationArchive ${UTILISATEUR} hebdomadaire
+fi
 
 if [ $# -gt 0 ] && [ "$1" = "production" ] && [ "$2" = "sauvegarde" ]; then
 
